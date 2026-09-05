@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Elevation layers ───────────────────────────────────────────────────── */
+  --bg-base:          #0B0F17;   /* page canvas — darkest */
+  --bg-surface:       #141920;   /* header, right panel */
+  --bg-card:          #1A2030;   /* glass cards, modals */
+  --bg-elevated:      #222C3C;   /* hover, inputs, dropdowns */
+  --bg-overlay:       #2A3547;   /* tooltip bg, active tile */
+
+  /* ── Legacy aliases — kept so old var() refs don't break ──────────────── */
+  --bg-primary:       #0B0F17;
+  --bg-secondary:     #141920;
+  --bg-card-hover:    #222C3C;
+
+  /* ── Borders ────────────────────────────────────────────────────────────── */
+  --border-subtle:    rgba(255,255,255,0.05);   /* section dividers only */
+  --border-accent:    rgba(59,158,255,0.35);    /* selected / focus ring  */
+
+  /* ── Text — 3-tier hierarchy ────────────────────────────────────────────── */
+  --text-primary:     #E8EDF5;   /* price numbers, card titles, headings */
+  --text-secondary:   #7A8BA6;   /* OPEN/VOLUME labels, subtitles */
+  --text-muted:       #445066;   /* timestamps, symbols, footnotes */
+
+  /* ── Single interactive accent ──────────────────────────────────────────── */
+  --accent:           #3B9EFF;
+  --accent-blue:      #3B9EFF;   /* alias kept for legacy usage */
+  --accent-glow:      rgba(59,158,255,0.14);
+  --accent-blue-glow: rgba(59,158,255,0.14);
+
+  /* ── Status colors — muted, used on text/badge only ────────────────────── */
+  --gain:             #3DBA7F;
+  --gain-glow:        rgba(61,186,127,0.12);
+  --loss:             #E05C5C;
+  --loss-glow:        rgba(224,92,92,0.12);
+  --neutral-color:    #6B7688;
+
+  /* ── Legacy aliases kept for backward compat ──────────────────────────── */
+  --green:            #3DBA7F;
+  --green-glow:       rgba(61,186,127,0.12);
+  --red:              #E05C5C;
+  --red-glow:         rgba(224,92,92,0.12);
+  --gold:             #D4A840;
+  --gold-glow:        rgba(212,168,64,0.12);
+  --purple:           #7C6DF0;
+}
+
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59,158,255,0.2) transparent;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(59,158,255,0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(59,158,255,0.38); }
+
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Depth comes from background color, not borders */
+.glass {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  /* No border — elevation contrast provides the separation */
+}
+
+.glass-elevated {
+  background: var(--bg-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glow-blue   { box-shadow: 0 0 20px var(--accent-glow); }
+.glow-gain   { box-shadow: 0 0 20px var(--gain-glow); }
+.glow-loss   { box-shadow: 0 0 20px var(--loss-glow); }
+.glow-gold   { box-shadow: 0 0 20px var(--gold-glow); }
+/* legacy aliases */
+.glow-green  { box-shadow: 0 0 20px var(--gain-glow); }
+.glow-red    { box-shadow: 0 0 20px var(--loss-glow); }
+
+/* ── Animations ── */
+@keyframes pulse-price {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slide-in-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 6px rgba(59,158,255,0.22); }
+  50%       { box-shadow: 0 0 18px rgba(59,158,255,0.5); }
+}
+
+@keyframes country-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes hover-glow {
+  0%   { filter: drop-shadow(0 0 0   rgba(59,158,255,0.0)); }
+  50%  { filter: drop-shadow(0 0 14px rgba(59,158,255,0.35)); }
+  100% { filter: drop-shadow(0 0 0   rgba(59,158,255,0.0)); }
+}
+
+.animate-slide-in-right { animation: slide-in-right 0.35s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-slide-in-up    { animation: slide-in-up    0.4s  cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-fade-in        { animation: fade-in        0.3s  ease forwards; }
+.animate-scale-in       { animation: scale-in       0.3s  cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-pulse-glow     { animation: pulse-glow     2s    ease-in-out infinite; }
+.animate-ticker         { animation: ticker-scroll  30s   linear infinite; }
+.animate-country-pulse  { animation: country-pulse  2s    ease-in-out infinite; }
+.animate-hover-glow     { animation: hover-glow     1.5s  ease-in-out infinite; }
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    rgba(255,255,255,0.04) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 6px;
+}
+
+/* Leaflet dark theme */
+.leaflet-container {
+  background: #0B0F17 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+/* Slightly lighter + less hue-rotate so the map reads as a warm-dark charcoal, not navy */
+.leaflet-tile { filter: brightness(0.32) saturate(0.2) hue-rotate(185deg); }
+.leaflet-control-attribution { display: none !important; }
+.leaflet-control-zoom a {
+  background: var(--bg-elevated) !important;
+  color: var(--text-secondary) !important;
+  border-color: transparent !important;
+}
+
+/* Custom Leaflet tooltip */
+.leaflet-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* TradingView widget — CRITICAL: iframe must fill container */
+.tradingview-widget-container {
+  height: 100% !important;
+  width: 100% !important;
+  display: block;
+  position: relative;
+}
+
+.tradingview-widget-container__widget {
+  height: calc(100% - 28px) !important;
+  width: 100% !important;
+  display: block;
+}
+
+.tradingview-widget-container iframe {
+  height: 100% !important;
+  width: 100% !important;
+  border: none !important;
+  display: block;
+}
+
+.tradingview-widget-copyright {
+  font-size: 10px;
+  color: var(--text-muted) !important;
+  opacity: 0.5;
+  line-height: 28px;
+  text-align: center;
+}
+
+.tradingview-widget-copyright a {
+  color: var(--text-muted) !important;
+  text-decoration: none;
+}
+
+/* ── Responsive layout ───────────────────────────────────────────────────── */
+
+/* Right-panel: mobile = full width stacked below, desktop = 36% side column */
+.right-panel {
+  width: 100% !important;
+  border-top: 1px solid var(--border-subtle);
+  border-left: none;
+}
+
+@media (min-width: 1024px) {
+  .right-panel {
+    width: 36% !important;
+    max-width: 480px;
+    border-top: none !important;
+    border-left: 1px solid var(--border-subtle) !important;
+    overflow-y: auto;
+    max-height: calc(100vh - 57px);
+  }
+}
+
+/* On small screens, let the map shrink a bit */
+@media (max-width: 768px) {
+  .leaflet-container {
+    height: 200px !important;
+  }
+}
+

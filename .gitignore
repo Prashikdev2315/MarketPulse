@@ -1,0 +1,35 @@
+# ── Python backend ────────────────────────────────────────────────────────────
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/.env
+backend/.env.*
+backend/nul
+backend/venv/
+backend/.venv/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# ── Node / Next.js frontend ───────────────────────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/*.tsbuildinfo
+
+# ── General ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.pem
+*.key
+*.log
+*.env
+.vercel
