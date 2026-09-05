@@ -6,13 +6,6 @@
 
 ---
 
-## Demo / Screenshot
-
-> _Add a screenshot or GIF of the running dashboard here._
-> `![Dashboard preview](./docs/screenshot.png)`
-
----
-
 ## Problem Statement
 
 I'm a swing trader who watches both Indian and global markets — because what happens overnight in the US or Japan directly moves NIFTY by morning. Keeping tabs on five different country markets meant five browser tabs, five refresh cycles, and completely disconnected context. When I wanted to understand *why* a position moved, I'd have to manually copy the day's price data into ChatGPT and paste in news headlines separately — just to get a basic take that any halfway-decent analyst could give in ten seconds. The timezone juggling made it worse: by the time I'd aggregated everything, the London session was already moving. I built this so a single dashboard could show me live indices, the news that drove them, and an AI analysis that already has that context baked in — no copy-paste, no tab-switching.
